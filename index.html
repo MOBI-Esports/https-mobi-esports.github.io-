@@ -4761,149 +4761,33 @@
         }
 
     
-        /* =========================================================
-           PUBG LOOT FLIGHT ANIMATIONS
-           Subtle cinematic objects drifting through the page
-        ========================================================= */
-
-        .combat-floaters {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 1;
-            isolation: isolate;
-        }
-
-        .combat-floater {
-            position: absolute;
-            left: -12vw;
-            top: var(--top);
-            font-size: var(--size);
-            line-height: 1;
-            opacity: 0;
-            filter:
-                drop-shadow(0 0 8px rgba(217,173,79,.18))
-                saturate(.78);
-            transform: rotate(var(--rotate));
-            will-change: transform, left, opacity;
-            animation:
-                lootFlight var(--duration) linear var(--delay) infinite;
-        }
-
-        .combat-floater.ammo {
-            filter:
-                drop-shadow(0 0 7px rgba(255,214,110,.30))
-                saturate(.85);
-        }
-
-        .combat-floater.weapon {
-            filter:
-                drop-shadow(0 0 10px rgba(217,173,79,.20))
-                grayscale(.12);
-        }
-
-        .combat-floater.dinner {
-            filter:
-                drop-shadow(0 0 13px rgba(255,220,120,.34))
-                saturate(.92);
-        }
-
-        @keyframes lootFlight {
-            0% {
-                left: -14vw;
-                opacity: 0;
-                transform:
-                    translate3d(0, 55px, 0)
-                    rotate(var(--rotate))
-                    scale(.72);
-            }
-
-            9% {
-                opacity: var(--opacity);
-            }
-
-            25% {
-                transform:
-                    translate3d(12vw, -30px, 0)
-                    rotate(calc(var(--rotate) + 10deg))
-                    scale(1);
-            }
-
-            50% {
-                transform:
-                    translate3d(34vw, 42px, 0)
-                    rotate(calc(var(--rotate) - 8deg))
-                    scale(.92);
-            }
-
-            75% {
-                transform:
-                    translate3d(58vw, -24px, 0)
-                    rotate(calc(var(--rotate) + 14deg))
-                    scale(1.02);
-            }
-
-            91% {
-                opacity: var(--opacity);
-            }
-
-            100% {
-                left: 114vw;
-                opacity: 0;
-                transform:
-                    translate3d(0, 48px, 0)
-                    rotate(calc(var(--rotate) + 24deg))
-                    scale(.78);
-            }
-        }
-
-        .combat-spark {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            background: rgba(255,230,163,.8);
-            box-shadow:
-                0 0 10px rgba(217,173,79,.7),
-                0 0 22px rgba(217,173,79,.25);
-            animation: sparkDrift var(--duration) ease-in-out var(--delay) infinite;
-        }
-
-        @keyframes sparkDrift {
-            0%, 100% {
-                opacity: 0;
-                transform: translate3d(0, 35px, 0) scale(.4);
-            }
-            20%, 75% {
-                opacity: .75;
-            }
-            50% {
-                transform: translate3d(28px, -45px, 0) scale(1.15);
-            }
-        }
-
-        @media (max-width: 700px) {
-            .combat-floaters {
-                z-index: 0;
-            }
-
-            .combat-floater {
-                font-size: calc(var(--size) * .72);
-            }
-
-            .combat-floater:nth-child(even) {
-                display: none;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .combat-floater,
-            .combat-spark {
-                animation: none !important;
-                display: none !important;
-            }
-        }
+/* ===== MOBI ESPORTS PREMIUM GRAPHIC FX ===== */
+.mobi-fx-layer{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden;perspective:1000px}
+.mobi-fx{position:absolute;opacity:0;will-change:transform,opacity;filter:drop-shadow(0 10px 18px rgba(0,0,0,.55))}
+.mobi-fx svg{width:100%;height:100%;display:block;overflow:visible}
+.mobi-rifle{width:190px;height:75px;top:18%;animation:rifleFly 12s linear infinite}
+.mobi-rifle.r2{top:64%;width:145px;height:58px;animation-duration:16s;animation-delay:-6s}
+.mobi-drone{width:130px;height:75px;top:30%;animation:droneFly 18s ease-in-out infinite}
+.mobi-chicken{width:120px;height:115px;right:7%;top:17%;animation:chickenFloat 6s ease-in-out infinite}
+.mobi-coin{width:46px;height:46px;left:12%;top:63%;animation:coinFly 7s ease-in-out infinite}
+.mobi-coin.c2{left:78%;top:72%;animation-delay:-3s}
+.mobi-cross{width:95px;height:95px;left:4%;top:38%;animation:crossFly 11s linear infinite}
+.mobi-tracer{position:absolute;width:240px;height:3px;background:linear-gradient(90deg,transparent,#fff4b5,#d8ad45,transparent);box-shadow:0 0 15px #d8ad45;opacity:0;transform:rotate(-12deg);animation:tracer 5.8s linear infinite}
+.mobi-tracer.t2{top:73%;animation-delay:-2.5s}.mobi-tracer.t3{top:31%;animation-delay:-4s}
+@keyframes rifleFly{0%{transform:translate3d(-25vw,15vh,100px) rotate(-20deg) scale(.7);opacity:0}8%{opacity:.6}48%{transform:translate3d(35vw,-2vh,0) rotate(7deg) scale(1);opacity:.52}75%{opacity:.28}100%{transform:translate3d(125vw,12vh,-100px) rotate(20deg) scale(.65);opacity:0}}
+@keyframes droneFly{0%{transform:translate3d(110vw,5vh,100px);opacity:0}10%{opacity:.45}45%{transform:translate3d(45vw,-7vh,0) rotate(-4deg);opacity:.5}70%{transform:translate3d(5vw,8vh,-80px) rotate(4deg);opacity:.3}100%{transform:translate3d(-25vw,0,-150px);opacity:0}}
+@keyframes chickenFloat{0%,100%{transform:translate3d(0,0,0) rotate(-3deg) scale(.9);opacity:.18}50%{transform:translate3d(-28px,-35px,60px) rotate(4deg) scale(1.05);opacity:.45}}
+@keyframes coinFly{0%{transform:translateY(50px) rotateY(0);opacity:0}15%{opacity:.55}55%{transform:translate(35px,-65px) rotateY(180deg);opacity:.4}100%{transform:translate(-15px,-155px) rotateY(360deg);opacity:0}}
+@keyframes crossFly{0%{transform:translate(-20px,20px) rotate(0) scale(.6);opacity:0}15%{opacity:.25}55%{transform:translate(100px,-20px) rotate(180deg) scale(1);opacity:.2}100%{transform:translate(230px,-80px) rotate(360deg) scale(.7);opacity:0}}
+@keyframes tracer{0%{left:110%;opacity:0}10%{opacity:.85}48%{opacity:.65}100%{left:-35%;opacity:0}}
+.mobi-rifle .body{fill:#15191d;stroke:#d2ad52;stroke-width:1.5}.mobi-rifle .dark{fill:#080b0f}.mobi-rifle .gold{fill:#d2ad52}.mobi-rifle .line{fill:none;stroke:#eee0ad;stroke-width:1}
+.mobi-drone .body{fill:#171b20;stroke:#d2ad52;stroke-width:1.5}.mobi-drone .gold{fill:#d2ad52}.mobi-drone .rotor{fill:none;stroke:#d2ad52;stroke-width:2;animation:rotor .55s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes rotor{to{transform:rotate(360deg)}}
+.mobi-chicken .body{fill:#d4ae50;stroke:#fff0ae;stroke-width:1.5}.mobi-chicken .dark{fill:#15191d}.mobi-chicken .shine{fill:#fff1bd}
+.mobi-coin .face{fill:#d7b455;stroke:#fff0ae;stroke-width:2}.mobi-coin .inner{fill:none;stroke:#76591f;stroke-width:2}
+.mobi-cross circle,.mobi-cross line{fill:none;stroke:#d7b455;stroke-width:2}
+@media(max-width:700px){.mobi-rifle{width:125px;height:50px}.mobi-rifle.r2{width:105px;height:42px}.mobi-drone{width:85px;height:50px}.mobi-chicken{width:85px;height:82px}.mobi-cross{width:70px;height:70px}.mobi-fx-layer{opacity:.65}}
+@media(prefers-reduced-motion:reduce){.mobi-fx-layer{display:none}}
 
 </style>
 </head>
@@ -4911,8 +4795,55 @@
 
 <body>
 
-    <!-- Cinematic PUBG-style flying loot -->
-    <div class="combat-floaters" id="combatFloaters" aria-hidden="true"></div>
+<div class="mobi-fx-layer" aria-hidden="true">
+  <div class="mobi-fx mobi-rifle">
+    <svg viewBox="0 0 240 90">
+      <path class="body" d="M22 42h65l25-14h72l25 8-4 12h-28l-12 13h-43l-8-10H84L70 68H47l7-17H22z"/>
+      <path class="dark" d="M105 29h37l9 19h-37zM165 36l24 4-3 8h-27zM52 52h18l-8 16H47z"/>
+      <rect class="gold" x="110" y="43" width="46" height="4" rx="2"/>
+      <path class="line" d="M88 42l18-10M155 29l8 20M190 40l20 2"/>
+      <path class="gold" d="M78 56h23l-8 20H72z"/>
+    </svg>
+  </div>
+  <div class="mobi-fx mobi-rifle r2">
+    <svg viewBox="0 0 240 90">
+      <path class="body" d="M22 42h65l25-14h72l25 8-4 12h-28l-12 13h-43l-8-10H84L70 68H47l7-17H22z"/>
+      <path class="dark" d="M105 29h37l9 19h-37zM165 36l24 4-3 8h-27z"/>
+      <rect class="gold" x="110" y="43" width="46" height="4" rx="2"/>
+    </svg>
+  </div>
+  <div class="mobi-fx mobi-drone">
+    <svg viewBox="0 0 180 100">
+      <ellipse class="body" cx="90" cy="50" rx="45" ry="19"/>
+      <path class="gold" d="M52 49L20 30l-5 6 34 25zm76 0l32-19 5 6-34 25z"/>
+      <circle class="rotor" cx="24" cy="30" r="18"/><circle class="rotor" cx="156" cy="30" r="18"/>
+      <circle class="rotor" cx="24" cy="70" r="18"/><circle class="rotor" cx="156" cy="70" r="18"/>
+      <circle class="gold" cx="90" cy="50" r="7"/>
+    </svg>
+  </div>
+  <div class="mobi-fx mobi-chicken">
+    <svg viewBox="0 0 150 140">
+      <ellipse class="body" cx="76" cy="82" rx="45" ry="32"/>
+      <circle class="body" cx="103" cy="49" r="25"/>
+      <path class="dark" d="M121 49l22 8-22 8zM88 29q-8-20 7-23 7 13 1 24z"/>
+      <circle class="dark" cx="111" cy="44" r="3"/>
+      <path class="shine" d="M42 74q-30-15-27 7 5 17 32 13z"/>
+      <path class="gold" d="M55 111l-4 22h8l8-22zm35 0l5 22h8l-5-22z"/>
+    </svg>
+  </div>
+  <div class="mobi-fx mobi-coin">
+    <svg viewBox="0 0 60 60"><circle class="face" cx="30" cy="30" r="24"/><circle class="inner" cx="30" cy="30" r="17"/><path class="inner" d="M25 18h10v24H25z"/></svg>
+  </div>
+  <div class="mobi-fx mobi-coin c2">
+    <svg viewBox="0 0 60 60"><circle class="face" cx="30" cy="30" r="24"/><circle class="inner" cx="30" cy="30" r="17"/><path class="inner" d="M25 18h10v24H25z"/></svg>
+  </div>
+  <div class="mobi-fx mobi-cross">
+    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="36"/><circle cx="50" cy="50" r="13"/><line x1="50" y1="3" x2="50" y2="25"/><line x1="50" y1="75" x2="50" y2="97"/><line x1="3" y1="50" x2="25" y2="50"/><line x1="75" y1="50" x2="97" y2="50"/></svg>
+  </div>
+  <div class="mobi-tracer" style="top:31%"></div>
+  <div class="mobi-tracer t2"></div>
+  <div class="mobi-tracer t3"></div>
+</div>
 
 
 
@@ -6815,115 +6746,6 @@
 
     </script>
 
-
-
-        /* =========================================================
-           CINEMATIC FLYING LOOT
-        ========================================================= */
-
-        (function () {
-
-            const reducedMotion =
-                window.matchMedia &&
-                window.matchMedia(
-                    "(prefers-reduced-motion: reduce)"
-                ).matches;
-
-            const layer =
-                document.getElementById(
-                    "combatFloaters"
-                );
-
-            if (!layer || reducedMotion) {
-                return;
-            }
-
-            const loot = [
-                { icon: "🔫", type: "weapon" },
-                { icon: "💥", type: "ammo" },
-                { icon: "🎯", type: "ammo" },
-                { icon: "🔫", type: "weapon" },
-                { icon: "🪖", type: "weapon" },
-                { icon: "🍗", type: "dinner" },
-                { icon: "💥", type: "ammo" },
-                { icon: "🔫", type: "weapon" },
-                { icon: "🎯", type: "ammo" },
-                { icon: "🍗", type: "dinner" }
-            ];
-
-            loot.forEach(function (item, index) {
-
-                const element =
-                    document.createElement("span");
-
-                element.className =
-                    "combat-floater " +
-                    item.type;
-
-                element.textContent =
-                    item.icon;
-
-                element.style.setProperty(
-                    "--top",
-                    (8 + Math.random() * 82) + "%"
-                );
-
-                element.style.setProperty(
-                    "--size",
-                    (18 + Math.random() * 20) + "px"
-                );
-
-                element.style.setProperty(
-                    "--duration",
-                    (17 + Math.random() * 16) + "s"
-                );
-
-                element.style.setProperty(
-                    "--delay",
-                    (-Math.random() * 22) + "s"
-                );
-
-                element.style.setProperty(
-                    "--rotate",
-                    (-18 + Math.random() * 36) + "deg"
-                );
-
-                element.style.setProperty(
-                    "--opacity",
-                    (.13 + Math.random() * .16).toFixed(2)
-                );
-
-                layer.appendChild(element);
-            });
-
-            for (let i = 0; i < 16; i++) {
-
-                const spark =
-                    document.createElement("span");
-
-                spark.className =
-                    "combat-spark";
-
-                spark.style.left =
-                    (3 + Math.random() * 94) + "%";
-
-                spark.style.top =
-                    (5 + Math.random() * 90) + "%";
-
-                spark.style.setProperty(
-                    "--duration",
-                    (7 + Math.random() * 10) + "s"
-                );
-
-                spark.style.setProperty(
-                    "--delay",
-                    (-Math.random() * 12) + "s"
-                );
-
-                layer.appendChild(spark);
-            }
-
-        })();
 
     <!-- =========================================================
          TAWK.TO CHAT WIDGET
