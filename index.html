@@ -4760,11 +4760,160 @@
 
         }
 
-    </style>
+    
+        /* =========================================================
+           PUBG LOOT FLIGHT ANIMATIONS
+           Subtle cinematic objects drifting through the page
+        ========================================================= */
+
+        .combat-floaters {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+            isolation: isolate;
+        }
+
+        .combat-floater {
+            position: absolute;
+            left: -12vw;
+            top: var(--top);
+            font-size: var(--size);
+            line-height: 1;
+            opacity: 0;
+            filter:
+                drop-shadow(0 0 8px rgba(217,173,79,.18))
+                saturate(.78);
+            transform: rotate(var(--rotate));
+            will-change: transform, left, opacity;
+            animation:
+                lootFlight var(--duration) linear var(--delay) infinite;
+        }
+
+        .combat-floater.ammo {
+            filter:
+                drop-shadow(0 0 7px rgba(255,214,110,.30))
+                saturate(.85);
+        }
+
+        .combat-floater.weapon {
+            filter:
+                drop-shadow(0 0 10px rgba(217,173,79,.20))
+                grayscale(.12);
+        }
+
+        .combat-floater.dinner {
+            filter:
+                drop-shadow(0 0 13px rgba(255,220,120,.34))
+                saturate(.92);
+        }
+
+        @keyframes lootFlight {
+            0% {
+                left: -14vw;
+                opacity: 0;
+                transform:
+                    translate3d(0, 55px, 0)
+                    rotate(var(--rotate))
+                    scale(.72);
+            }
+
+            9% {
+                opacity: var(--opacity);
+            }
+
+            25% {
+                transform:
+                    translate3d(12vw, -30px, 0)
+                    rotate(calc(var(--rotate) + 10deg))
+                    scale(1);
+            }
+
+            50% {
+                transform:
+                    translate3d(34vw, 42px, 0)
+                    rotate(calc(var(--rotate) - 8deg))
+                    scale(.92);
+            }
+
+            75% {
+                transform:
+                    translate3d(58vw, -24px, 0)
+                    rotate(calc(var(--rotate) + 14deg))
+                    scale(1.02);
+            }
+
+            91% {
+                opacity: var(--opacity);
+            }
+
+            100% {
+                left: 114vw;
+                opacity: 0;
+                transform:
+                    translate3d(0, 48px, 0)
+                    rotate(calc(var(--rotate) + 24deg))
+                    scale(.78);
+            }
+        }
+
+        .combat-spark {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(255,230,163,.8);
+            box-shadow:
+                0 0 10px rgba(217,173,79,.7),
+                0 0 22px rgba(217,173,79,.25);
+            animation: sparkDrift var(--duration) ease-in-out var(--delay) infinite;
+        }
+
+        @keyframes sparkDrift {
+            0%, 100% {
+                opacity: 0;
+                transform: translate3d(0, 35px, 0) scale(.4);
+            }
+            20%, 75% {
+                opacity: .75;
+            }
+            50% {
+                transform: translate3d(28px, -45px, 0) scale(1.15);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .combat-floaters {
+                z-index: 0;
+            }
+
+            .combat-floater {
+                font-size: calc(var(--size) * .72);
+            }
+
+            .combat-floater:nth-child(even) {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .combat-floater,
+            .combat-spark {
+                animation: none !important;
+                display: none !important;
+            }
+        }
+
+</style>
 </head>
 
 
 <body>
+
+    <!-- Cinematic PUBG-style flying loot -->
+    <div class="combat-floaters" id="combatFloaters" aria-hidden="true"></div>
+
 
 
     <!-- =========================================================
@@ -6666,6 +6815,115 @@
 
     </script>
 
+
+
+        /* =========================================================
+           CINEMATIC FLYING LOOT
+        ========================================================= */
+
+        (function () {
+
+            const reducedMotion =
+                window.matchMedia &&
+                window.matchMedia(
+                    "(prefers-reduced-motion: reduce)"
+                ).matches;
+
+            const layer =
+                document.getElementById(
+                    "combatFloaters"
+                );
+
+            if (!layer || reducedMotion) {
+                return;
+            }
+
+            const loot = [
+                { icon: "🔫", type: "weapon" },
+                { icon: "💥", type: "ammo" },
+                { icon: "🎯", type: "ammo" },
+                { icon: "🔫", type: "weapon" },
+                { icon: "🪖", type: "weapon" },
+                { icon: "🍗", type: "dinner" },
+                { icon: "💥", type: "ammo" },
+                { icon: "🔫", type: "weapon" },
+                { icon: "🎯", type: "ammo" },
+                { icon: "🍗", type: "dinner" }
+            ];
+
+            loot.forEach(function (item, index) {
+
+                const element =
+                    document.createElement("span");
+
+                element.className =
+                    "combat-floater " +
+                    item.type;
+
+                element.textContent =
+                    item.icon;
+
+                element.style.setProperty(
+                    "--top",
+                    (8 + Math.random() * 82) + "%"
+                );
+
+                element.style.setProperty(
+                    "--size",
+                    (18 + Math.random() * 20) + "px"
+                );
+
+                element.style.setProperty(
+                    "--duration",
+                    (17 + Math.random() * 16) + "s"
+                );
+
+                element.style.setProperty(
+                    "--delay",
+                    (-Math.random() * 22) + "s"
+                );
+
+                element.style.setProperty(
+                    "--rotate",
+                    (-18 + Math.random() * 36) + "deg"
+                );
+
+                element.style.setProperty(
+                    "--opacity",
+                    (.13 + Math.random() * .16).toFixed(2)
+                );
+
+                layer.appendChild(element);
+            });
+
+            for (let i = 0; i < 16; i++) {
+
+                const spark =
+                    document.createElement("span");
+
+                spark.className =
+                    "combat-spark";
+
+                spark.style.left =
+                    (3 + Math.random() * 94) + "%";
+
+                spark.style.top =
+                    (5 + Math.random() * 90) + "%";
+
+                spark.style.setProperty(
+                    "--duration",
+                    (7 + Math.random() * 10) + "s"
+                );
+
+                spark.style.setProperty(
+                    "--delay",
+                    (-Math.random() * 12) + "s"
+                );
+
+                layer.appendChild(spark);
+            }
+
+        })();
 
     <!-- =========================================================
          TAWK.TO CHAT WIDGET
